@@ -5,8 +5,8 @@ return {
 		lazy = false,
 		config = function()
 			local onedark = require "onedark"
-			onedark.setup{
-				style = 'warmer',
+			onedark.setup {
+				style = 'deep',
 				transparent = false,
 				term_colors = true,
 				ending_tildes = false,
@@ -32,7 +32,7 @@ return {
 				},
 			}
 
-			vim.cmd[[colorscheme onedark]]
+			vim.cmd [[colorscheme onedark]]
 		end
 	}
 }
