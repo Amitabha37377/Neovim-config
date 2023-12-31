@@ -36,7 +36,7 @@ define_keymap('n', '<C-1>', 'ToggleTerm size=11 direction=horizontal')
 define_keymap('n', '<leader>1', "BufferGoto 1")
 define_keymap('n', '<leader>2', "BufferGoto 2")
 define_keymap('n', '<leader>3', "BufferGoto 3")
-define_keymap('n', '<leader>4', "BufferGoto 3")
+define_keymap('n', '<leader>4', "BufferGoto 4")
 define_keymap('n', '<leader>5', "BufferGoto 5")
 define_keymap('n', '<leader>6', "BufferGoto 6")
 define_keymap('n', '<leader>7', "BufferGoto 7")
@@ -44,5 +44,3 @@ define_keymap('n', '<leader>8', "BufferGoto 8")
 
 --Close Tab----------
 define_keymap('n', '<leader>q', "BufferClose")
-
-
