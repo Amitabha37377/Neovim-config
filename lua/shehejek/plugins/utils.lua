@@ -13,34 +13,38 @@ return {
 		version = "*",
 		opts = {
 			highlights = {
-				Normal = {guibg = "none",},
-				NormalFloat = {	link = 'Normal'},
-				FloatBorder = {guibg = "none",},
+				Normal = { guibg = "none", },
+				NormalFloat = { link = 'Normal' },
+				FloatBorder = { guibg = "none", },
 			},
 		}
 	},
 	{
 		'NvChad/nvim-colorizer.lua',
 		opts = {
-			filetypes = { "*" },
-			user_default_options = {
-				RGB = true,   
-				RRGGBB = true, 
-				names = false,
-				RRGGBBAA = true,
-				AARRGGBB = false,
-				rgb_fn = false, 
-				hsl_fn = false,
-				css = false,   
-				css_fn = false,
-				mode = "background",
-				tailwind = true,   
-				sass = { enable = false, parsers = { "css" }, },
-				virtualtext = "■",
-				always_update = true
+			-- filetypes = { "*" },
+			filetypes = {
+				'*',
+				cmp_docs = { always_update = true }
 			},
-			buftypes = {},
+			user_default_options = {
+				-- RGB = true,
+				-- RRGGBB = true,
+				-- names = false,
+				-- RRGGBBAA = true,
+				-- AARRGGBB = false,
+				-- rgb_fn = false,
+				-- hsl_fn = false,
+				-- css = false,
+				-- css_fn = false,
+				-- mode = "background",
+				tailwind = true,
+				-- sass = { enable = false, parsers = { "css" }, },
+				-- virtualtext = "■",
+				-- always_update = true
+			},
+			-- buftypes = {},
 		}
 
 	}
-} 
+}

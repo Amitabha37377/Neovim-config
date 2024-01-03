@@ -7,6 +7,7 @@ return {
 		{ 'neovim/nvim-lspconfig' },           -- Required
 		{ 'williamboman/mason.nvim' },         -- Optional
 		{ 'williamboman/mason-lspconfig.nvim' }, -- Optional
+		{ 'onsails/lspkind.nvim' },
 
 		-- Autocompletion
 		{ 'hrsh7th/nvim-cmp' },       -- Required
@@ -22,141 +23,132 @@ return {
 	},
 	events = { "BufReadPre", "BufNewFile" },
 
-	config = function()
-		local lsp = require("lsp-zero")
+	--config = function()
+	--	local lsp = require("lsp-zero")
+	--	lsp.preset("recommended")
+	--	lsp.ensure_installed({})
+	--	lsp.nvim_workspace()
 
-		lsp.preset("recommended")
+	--	local kind_icons = {
+	--		Text = "",
+	--		Method = "󰆧",
+	--		Function = "󰊕",
+	--		Constructor = "",
+	--		Field = "󰇽",
+	--		Variable = "󰂡",
+	--		Class = "󰠱",
+	--		Interface = "",
+	--		Module = "",
+	--		Property = "󰜢",
+	--		Unit = "",
+	--		Value = "󰎠",
+	--		Enum = "",
+	--		Keyword = "󰌋",
+	--		Snippet = "",
+	--		Color = "󰏘",
+	--		File = "󰈙",
+	--		Reference = "",
+	--		Folder = "󰉋",
+	--		EnumMember = "",
+	--		Constant = "󰏿",
+	--		Struct = "",
+	--		Event = "",
+	--		Operator = "󰆕",
+	--		TypeParameter = "󰅲",
+	--	}
 
-		lsp.ensure_installed({
-		})
+	--	local cmp = require('cmp')
+	--	local cmp_action = require('lsp-zero').cmp_action()
+	--	local lspkind = require('lspkind')
 
-		-- Fix Undefined global 'vim'
-		lsp.nvim_workspace()
+	--	--cmp setups
+	--	cmp.setup({
 
-		local kind_icons = {
-			Text = "",
-			Method = "󰆧",
-			Function = "󰊕",
-			Constructor = "",
-			Field = "󰇽",
-			Variable = "󰂡",
-			Class = "󰠱",
-			Interface = "",
-			Module = "",
-			Property = "󰜢",
-			Unit = "",
-			Value = "󰎠",
-			Enum = "",
-			Keyword = "󰌋",
-			Snippet = "",
-			Color = "󰏘",
-			File = "󰈙",
-			Reference = "",
-			Folder = "󰉋",
-			EnumMember = "",
-			Constant = "󰏿",
-			Struct = "",
-			Event = "",
-			Operator = "󰆕",
-			TypeParameter = "󰅲",
-		}
+	--		window = {
+	--			completion = cmp.config.window.bordered({
+	--				border = "double",
+	--				col_offset = -3,
+	--			}),
+	--		},
 
-		-- You need to setup `cmp` after lsp-zero
-		local cmp = require('cmp')
-		local cmp_action = require('lsp-zero').cmp_action()
-		local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+	--		mapping = {
+	--			['<CR>'] = cmp.mapping.confirm({ select = false }),
+	--			['<C-Space>'] = cmp.mapping.complete(),
+	--			['<C-f>'] = cmp_action.luasnip_jump_forward(),
+	--			['<C-b>'] = cmp_action.luasnip_jump_backward(),
+	--		},
 
-		--Puts parenthesis on selecting a function
-		cmp.event:on(
-			'confirm_done',
-			cmp_autopairs.on_confirm_done()
-		)
+	--		formatting = {
+	--			fields = { "kind", "abbr", "menu" },
+	--			format = lspkind.cmp_format({
+	--				mode = 'symbol_text', -- options: 'text', 'text_symbol', 'symbol_text', 'symbol'
+	--				maxwidth = 50,   -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+	--				menu = ({        -- showing type in menu
+	--					nvim_lsp = "[LSP]",
+	--					path = "[Path]",
+	--					buffer = "[Buffer]",
+	--					luasnip = "[LuaSnip]",
+	--				}),
+	--				before = function(entry, vim_item) -- for tailwind css autocomplete
+	--					if vim_item.kind == 'Color' and entry.completion_item.documentation then
+	--						local _, _, r, g, b = string.find(entry.completion_item.documentation, '^rgb%((%d+), (%d+), (%d+)')
+	--						if r then
+	--							local color = string.format('%02x', r) .. string.format('%02x', g) .. string.format('%02x', b)
+	--							local group = 'Tw_' .. color
+	--							if vim.fn.hlID(group) < 1 then
+	--								vim.api.nvim_set_hl(0, group, { fg = '#' .. color })
+	--							end
+	--							vim_item.kind = "■" -- or "⬤" or anything
+	--							vim_item.kind_hl_group = group
+	--							return vim_item
+	--						end
+	--					end
+	--					-- vim_item.kind = icons[vim_item.kind] and (icons[vim_item.kind] .. vim_item.kind) or vim_item.kind
+	--					-- or just show the icon
+	--					vim_item.kind = lspkind.symbolic(vim_item.kind) and lspkind.symbolic(vim_item.kind) or vim_item.kind
+	--					return vim_item
+	--				end
+	--			})
+	--		},
 
-		--cmp setups
-		cmp.setup({
+	--		-- sources = cmp.config.sources {
+	--		-- 	{ name = "nvim_lsp", priority = 1000 },
+	--		-- 	{ name = "luasnip",  priority = 750 },
+	--		-- 	{ name = "buffer",   priority = 500 },
+	--		-- 	{ name = "path",     priority = 250 },
+	--		-- },
 
-			mapping = {
-				-- `Enter` key to confirm completion
-				['<CR>'] = cmp.mapping.confirm({ select = false }),
+	--		-- snippet = {
+	--		-- 	expand = function(args)
+	--		-- 		require('luasnip').lsp_expand(args.body)
+	--		-- 	end,
+	--		-- },
 
-				-- Ctrl+Space to trigger completion menu
-				['<C-Space>'] = cmp.mapping.complete(),
+	--	})
 
-				-- Navigate between snippet placeholder
-				['<C-f>'] = cmp_action.luasnip_jump_forward(),
-				['<C-b>'] = cmp_action.luasnip_jump_backward(),
-			},
+	--	lsp.set_preferences({
+	--		suggest_lsp_servers = false,
+	--		sign_icons = {
+	--			error = '',
+	--			warn = '',
+	--			hint = '󰰂',
+	--			info = ''
+	--		}
+	--	})
 
-			window = {
-				completion = cmp.config.window.bordered({
-					border = "double",
-				}),
-			},
-			formatting = {
-				format =
-						function(entry, vim_item)
-							local lspkind_ok, lspkind = pcall(require, "lspkind")
-							if not lspkind_ok then
-								-- From kind_icons array
-								vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-								-- Source
-								vim_item.menu = ({
-									buffer = "[Buffer]",
-									nvim_lsp = "[LSP]",
-									luasnip = "[LuaSnip]",
-									nvim_lua = "[Lua]",
-									latex_symbols = "[LaTeX]",
-								})[entry.source.name]
-								vim_item.abbr = string.sub(vim_item.abbr, 1, 20)
-								return vim_item
-							else
-								-- From lspkind
-								return lspkind.cmp_format()(entry, vim_item)
-							end
-						end
-			},
+	--	lsp.setup()
 
-			sources = cmp.config.sources {
-				{ name = "nvim_lsp", priority = 1000 },
-				{ name = "luasnip",  priority = 750 },
-				{ name = "buffer",   priority = 500 },
-				{ name = "path",     priority = 250 },
-			},
+	--	vim.diagnostic.config({
+	--		virtual_text = true
+	--	})
 
-			snippet = {
-				expand = function(args)
-					require('luasnip').lsp_expand(args.body)
-				end,
-			},
+	--	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+	--		vim.lsp.diagnostic.on_publish_diagnostics, {
+	--			update_in_insert = true,
+	--		}
+	--	)
 
-		})
-
-
-
-		lsp.set_preferences({
-			suggest_lsp_servers = false,
-			sign_icons = {
-				error = '',
-				warn = '',
-				hint = '󰰂',
-				info = ''
-			}
-		})
-
-		lsp.setup()
-
-		vim.diagnostic.config({
-			virtual_text = true
-		})
-
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-			vim.lsp.diagnostic.on_publish_diagnostics, {
-				-- delay update diagnostics
-				update_in_insert = true,
-			}
-		)
-
-		--Autoformatting on save
-		vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
-	end
+	--	--Autoformatting on save
+	--	vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+	--end
 }
