@@ -21,7 +21,6 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.pumheight = 15
 vim.opt.signcolumn = 'yes'
---vim.cmd("set pumheight=15")
---vim.cmd('set lbr')
---vim.cmd('colorscheme onedark')
---vim.cmd("set signcolumn=yes")
+
+--Autoformatting on save
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
